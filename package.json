@@ -1,0 +1,11 @@
+{
+  "name": "backtrace-logging",
+  "version": "0.0.0",
+  "description": "Hide unnecessary logs until an error occurs",
+  "main": "index.js",
+  "type": "module",
+  "repository": "laggingreflex/backtrace-logging",
+  "dependencies": {
+    "fn-buffer": "0.2.0"
+  }
+}
