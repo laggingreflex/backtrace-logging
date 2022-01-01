@@ -5,6 +5,12 @@
   "main": "index.js",
   "type": "module",
   "repository": "laggingreflex/backtrace-logging",
+  "keywords": [
+    "logging",
+    "backtrace",
+    "buffer",
+    "debug"
+  ],
   "dependencies": {
     "fn-buffer": "0.2.0"
   }
