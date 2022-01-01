@@ -17,7 +17,7 @@ export function register(meta, opts = meta.opts) {
     bl.object(console, key, opts);
   }
   if (meta?.util ?? true) {
-    util.debug = (fn => name => bl.fn(fn(name), opts))(util.debug.bind(util));
+    util.debug = (debug => section => bl.fn(debug.call(util, section), opts))(util.debug);
   }
   for (const key of arrify(meta?.process ?? [])) {
     createObject(process[key], 'write', opts);

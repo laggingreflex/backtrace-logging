@@ -34,7 +34,11 @@ export default class BacktraceLogging {
     const name = ['patched(backtrace-logging)', fn.name].filter(Boolean).join(' <= ');
     Object.defineProperty(patch, 'name', { value: name });
     patch(name);
-    return patch;
+    return new Proxy(fn, {
+      apply(target, thisArgument, argumentsList) {
+        return Reflect.apply( /* not target */ patch, thisArgument, argumentsList)
+      }
+    });
   }
 
   /**
