@@ -12,6 +12,6 @@
     "debug"
   ],
   "dependencies": {
-    "fn-buffer": "0.2.0"
+    "fn-buffer": "0.2.3"
   }
 }

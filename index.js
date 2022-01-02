@@ -26,7 +26,7 @@ export default class BacktraceLogging {
   fn = (fn, opts) => {
     if (this.store.has(fn)) return this.store.get(fn);
     const patch = new BufferedFunction(fn, {
-      flush: false,
+      flush: 0,
       queue: this.queue,
       ...opts
     });
