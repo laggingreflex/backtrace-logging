@@ -1,6 +1,6 @@
 {
   "name": "backtrace-logging",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Hide unnecessary logs until an error occurs",
   "main": "index.js",
   "type": "module",
