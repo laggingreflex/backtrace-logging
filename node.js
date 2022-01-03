@@ -1,5 +1,6 @@
 import util from 'util';
 import process from 'process';
+import fs from 'fs';
 import BacktraceLogging from './index.js'
 import { arrify, getMeta } from './utils.js'
 
@@ -24,6 +25,12 @@ export function register(meta, opts = meta.opts) {
   }
   process.on('uncaughtExceptionMonitor', bl.flush);
   process.on('beforeExit', code => code && bl.flush());
+  if (meta.file) file(meta.file, bl);
+}
+
+export function file(file, b = bl, format = util.format) {
+  const stream = fs.createWriteStream(file, { flags: 'a' });
+  b.tee(stream, a => format(...a, '\n'));
 }
 
 /**

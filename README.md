@@ -102,6 +102,7 @@ register(meta, opts = meta.opts)
 #### Node only
 * **`meta.util`** `[boolean]` Patch [util.debug]
 * **`meta.process`** `[array]` Keys to patch in [process] (`stdout|stderr`)
+* **`meta.file`** `[string]` File to append skipped logs to
 
 ### Auto Register
 

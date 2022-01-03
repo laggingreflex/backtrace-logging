@@ -14,6 +14,9 @@ export default class BacktraceLogging {
     if (typeof opts === 'number') opts = { capacity: opts };
     this.queue = opts?.queue ?? new BufferQueue(opts?.capacity ?? 10);
     this.store = opts?.store ?? new Map();
+    for (const event of this.queue?.constructor?.events ?? []) {
+      this.queue.on(event, data => this.emit(event, data));
+    }
   }
 
   /** @type {fn} */
@@ -74,6 +77,25 @@ export default class BacktraceLogging {
     for (const patch of this.store.values()) {
       patch.flush();
     }
+  }
+
+  on = (event, listener) => {
+    if (!this.listeners) this.listeners = [];
+    this.listeners.push([event, listener]);
+  }
+  emit = (event, data) => {
+    for (const [e, listener] of this.listeners ?? []) {
+      if (event === e) listener(data);
+    }
+  }
+
+  tee = (stream, format = JSON.stringify) => {
+    this.on('push', data => {
+      const [fn, , args] = data[0];
+      const fnName = fn.name ? `[${fn.name}]` : '';
+      const message = format([fnName, ...args]);
+      stream.write(message);
+    });
   }
 }
 
