@@ -1,5 +1,8 @@
 import BufferedFunction, { BufferQueue } from 'fn-buffer';
 
+/**
+ * @property {fn} fn
+ */
 export default class BacktraceLogging {
   /**
    * @param {object} [opts]
@@ -13,16 +16,7 @@ export default class BacktraceLogging {
     this.store = opts?.store ?? new Map();
   }
 
-  /**
-   * Patch a function to buffer its calls
-   * @param {function} fn Function to patch
-   * @param {object} [opts] options for fn-buffer
-   * @returns {function} The patched function
-   * Example:
-   * ```js
-   * console.log = fn(console.log)
-   * ```
-   */
+  /** @type {fn} */
   fn = (fn, opts) => {
     if (this.store.has(fn)) return this.store.get(fn);
     const patch = new BufferedFunction(fn, {
@@ -82,3 +76,15 @@ export default class BacktraceLogging {
     }
   }
 }
+
+/**
+ * @callback fn
+ * Patch a function to buffer its calls
+ * @param {function} fn Function to patch
+ * @param {object} [opts] options for fn-buffer
+ * @returns {function} The patched function
+ * Example:
+ * ```js
+ * console.log = fn(console.log)
+ * ```
+ */
