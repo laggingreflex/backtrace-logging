@@ -13,19 +13,19 @@ if (meta.auto !== false) register(meta);
 /**
  * @param {meta} meta
  */
-export function register(meta, opts = meta.opts) {
+ export function register(meta, opts = meta.opts, b = bl) {
   for (const key of arrify(meta?.console ?? ['debug', 'warn'])) {
-    bl.object(console, key, opts);
+    b.object(console, key, opts);
   }
   if (meta?.util ?? true) {
-    util.debug = (debug => section => bl.fn(debug.call(util, section), opts))(util.debug);
+    util.debug = (debug => section => b.fn(debug.call(util, section), opts))(util.debug);
   }
   for (const key of arrify(meta?.process ?? [])) {
     createObject(process[key], 'write', opts);
   }
-  process.on('uncaughtExceptionMonitor', bl.flush);
-  process.on('beforeExit', code => code && bl.flush());
-  if (meta.file) file(meta.file, bl);
+  process.on('uncaughtExceptionMonitor', b.flush);
+  process.on('beforeExit', code => code && b.flush());
+  if (meta.file) file(meta.file, b);
 }
 
 export function file(file, b = bl, format = util.format) {
