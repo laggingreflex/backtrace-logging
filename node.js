@@ -25,6 +25,7 @@ if (meta.auto !== false) register(meta);
   }
   process.on('uncaughtExceptionMonitor', b.flush);
   process.on('beforeExit', code => code && b.flush());
+  process.on('exit', code => code && b.flush());
   if (meta.file) file(meta.file, b);
 }
 
