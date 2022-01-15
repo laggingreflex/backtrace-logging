@@ -11,7 +11,7 @@ export default class BacktraceLogging {
    * @param {Map} [opts.store] Custom map to store { original => patch } function pairs
    */
   constructor(opts) {
-    if (typeof opts === 'number') opts = { capacity: opts };
+    if (typeof opts === typeof 0) opts = { capacity: opts };
     this.queue = opts?.queue ?? new BufferQueue(opts?.capacity ?? 10);
     this.store = opts?.store ?? new Map();
     for (const event of this.queue?.constructor?.events ?? []) {

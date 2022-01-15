@@ -1,6 +1,6 @@
 export function arrify(item) {
   if (Array.isArray(item)) return item;
-  if (typeof item === 'undefined') return [];
+  if (typeof item === typeof undefined) return [];
   return [item];
 }
 
